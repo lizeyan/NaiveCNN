@@ -15,11 +15,15 @@ classdef SoftmaxLoss < handle
             %        Notice: how to avoid overflow in exponential?
             %     2. loss = sum(target * -log(probability)), where target
             %        is one-hot encoding form label
+            exp_input = exp (input);
+            probability = exp_input / sum (exp_input);
+            loss = -sum (target .* log(probability));
             
         end
 
         function delta = backprop(layer, input, target)
             % Your codes here
+            delta = input - target;
         end
     end
 end

@@ -33,6 +33,10 @@ classdef Linear < Layer
         end
 
         function layer = forward(layer, input)
+            layer.input = input;
+            layer.input_shape = [input; ones(1, size(input, 2))];
+            layer.output = [layer.W ones(layer.num_output, 1) .* layer.b] * layer.input_shape;
+            
             % Your codes here
             % hint: 
             %     1. reshape input if necessary 
@@ -45,7 +49,9 @@ classdef Linear < Layer
             % hint: 
             %     1. calc grad_W, grad_b and delta for input
             %     2. reshape delta if necessary
-
+            layer.delta = layer.W * delta;
+            layer.grad_W = delta * layer.input';
+            layer.grad_b = sum (delta, 2);
         end
 
         function layer = update(layer, config)
