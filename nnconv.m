@@ -8,5 +8,16 @@ function output = nnconv(input, kernel_size, num_output, W, b, pad)
     %     3. don't forget adding bias
     %
     % ps: there are more than one way in step 2, try to find the fastest method
-    
+    for i = 1:pad
+        input = pad_border (input);
+    end
+end
+
+function output = pad_border (input)
+    zero_column = input (:, 1, :, :) .* 0;
+    output = [zero_column input zero_column];
+    zero_row = output (1, :, :, :) .* 0;
+    output = [zero_row; output; zero_row];
+    disp(size(input));
+    disp(size(output));
 end
