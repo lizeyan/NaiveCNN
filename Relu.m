@@ -12,12 +12,15 @@ classdef Relu < Layer
 
         function layer = forward(layer, input)
             % Your codes here
-
+            layer.input = input;
+            layer.output = max (zeros(size(input)), input);
         end
 
         function layer = backprop(layer, delta)
             % Your codes here
-            
+            tmp = layer.output;
+            tmp(tmp>0) = 1;
+            layer.delta = delta .* tmp;
         end
     end
 end
