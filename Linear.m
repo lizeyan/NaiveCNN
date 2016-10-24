@@ -33,8 +33,9 @@ classdef Linear < Layer
         end
 
         function layer = forward(layer, input)
-            layer.input = input;
-            layer.input_shape = [input; ones(1, size(input, 2))];
+%             disp (size(input));
+            layer.input = reshape(input, [layer.num_input, size(input, 4)]);
+            layer.input_shape = [layer.input; ones(1, size(layer.input, 2))];
             layer.output = [layer.W ones(layer.num_output, 1) .* layer.b] * layer.input_shape;
             
             % Your codes here
@@ -49,7 +50,7 @@ classdef Linear < Layer
             % hint: 
             %     1. calc grad_W, grad_b and delta for input
             %     2. reshape delta if necessary
-            layer.delta = layer.W * delta;
+            layer.delta = layer.W' * delta;
             layer.grad_W = delta * layer.input';
             layer.grad_b = sum (delta, 2);
         end

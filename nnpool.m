@@ -16,9 +16,9 @@ function output = nnpool(input, kernel_size, pad)
         for c_cnt = 1:c
             col = im2col (input_shape(:, :, c_cnt, n_cnt), [kernel_size, kernel_size], 'distinct');
             col = mean (col);
-            disp (size(col));
+%             disp (size(col));
             output (:, :, c_cnt, n_cnt) = col2im (col, [1, 1], [hn / kernel_size, wn / kernel_size], 'distinct');
-            disp (size (output(:, :, c_cnt, n_cnt)));
+%             disp (size (output(:, :, c_cnt, n_cnt)));
         end
     end
 %     disp (size(input));

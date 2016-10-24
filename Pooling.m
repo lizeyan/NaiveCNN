@@ -21,6 +21,7 @@ classdef Pooling < Layer
         end
 
         function layer = backprop(layer, delta)
+%             disp (size(layer.output));
             assert(isequal(size(delta), size(layer.output)), ...
                 ['delta is inconsistent with ' layer.name ' output']);
             layer.delta = nnpool_bp(layer.input, delta, layer.kernel_size, layer.pad);
