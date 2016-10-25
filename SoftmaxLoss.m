@@ -16,7 +16,7 @@ classdef SoftmaxLoss < handle
             %     2. loss = sum(target * -log(probability)), where target
             %        is one-hot encoding form label
             exp_input = exp (input);
-            probability = exp_input / sum (exp_input);
+            probability = exp_input ./ repmat (sum(exp_input), [size(input, 1), 1]);
             loss = -sum (target .* log(probability));
             
         end

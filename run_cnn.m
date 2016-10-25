@@ -27,9 +27,10 @@ update.momentum = 0.9;
 solver.update = update;
 solver.shuffle = true;
 solver.batch_size = 32;
-solver.display_freq = 50;
+solver.display_freq = 100;
 solver.max_iter = 10000;
 solver.test_freq = 1000;
+solver.snapshot_freq = 1000000;
 
 solve_cnn(model, loss, train_data, train_label, ...
       test_data, test_label, solver);

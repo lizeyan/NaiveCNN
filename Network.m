@@ -47,7 +47,8 @@ classdef Network < handle
             % hint:
             %    1. forward input through net
             %    2. get the net's output
-            
+            net.Forward (input);
+            preds = net.Output ();
         end
     end
 end

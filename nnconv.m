@@ -12,6 +12,7 @@ function output = nnconv(input, kernel_size, num_output, W, b, pad)
         input = pad_border (input);
     end
     output = zeros(size(input, 1) - kernel_size + 1, size(input, 2) - kernel_size + 1, num_output, size(input, 4));
+    [height, width, channel, number] = size(output);
     for n = 1:size(input, 4)
         input_case = input(:, :, :, n);
         for f = 1:num_output
@@ -20,7 +21,7 @@ function output = nnconv(input, kernel_size, num_output, W, b, pad)
             for ch = 1:size(input_case,3)
                 lhs(:, :, ch) = conv2 (input_case(:, :, ch), w_f(:, :, ch), 'valid');
             end
-            output(:, :, f, n) = sum (lhs, 3);
+            output(:, :, f, n) = sum (lhs, 3) + ones(height, width) * b(f);
         end
     end
 end
