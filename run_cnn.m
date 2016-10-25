@@ -28,7 +28,7 @@ solver.update = update;
 solver.shuffle = true;
 solver.batch_size = 32;
 solver.display_freq = 100;
-solver.max_iter = 10000;
+solver.max_iter = 300;
 solver.test_freq = 1000;
 solver.snapshot_freq = 1000000;
 
