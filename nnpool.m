@@ -6,7 +6,7 @@ function output = nnpool(input, kernel_size, pad)
     %        patches from input
     %     3. get average value in each patch
     %     4. restore the original layout
-    [h w c n] = size (input);
+    [h, w, c, n] = size (input);
     hn = h + pad * 2;
     wn = w + pad * 2;
     output = zeros(hn / kernel_size, wn / kernel_size, c, n);
