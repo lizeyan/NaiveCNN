@@ -23,7 +23,9 @@ classdef SoftmaxLoss < handle
 
         function delta = backprop(layer, input, target)
             % Your codes here
-            delta = input - target;
+            exp_input = exp (input);
+            probability = exp_input ./ repmat (sum(exp_input), [size(input, 1), 1]);
+            delta = probability - target;
         end
     end
 end

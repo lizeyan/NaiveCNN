@@ -18,8 +18,8 @@ classdef Relu < Layer
 
         function layer = backprop(layer, delta)
             % Your codes here
-            tmp = layer.output;
-            tmp(tmp>0) = 1;
+            tmp = zeros(size(layer.output));
+            tmp(layer.output > 0) = 1;
             layer.delta = delta .* tmp;
         end
     end

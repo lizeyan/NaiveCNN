@@ -14,6 +14,7 @@ function down_delta = nnpool_bp(input, delta, kernel_size, pad)
             down_delta(:, :, c_cnt, n_cnt) = im (pad + 1: pad + h, pad + 1: pad + w);
         end
     end
+    down_delta = down_delta ./ (kernel_size * kernel_size);
 end
 
 function out = im2col_distinct(A,blocksize)

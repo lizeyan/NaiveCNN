@@ -14,12 +14,13 @@ function output = nnconv(input, kernel_size, num_output, W, b, pad)
     for n = 1:size(input_shape, 4)
         for f = 1:num_output
             for ch = 1:size(input_shape, 3)
-                output (:, :, f, n) = output(:, :, f, n) + conv2 (input_shape(:, :, ch, n), W(:, :, ch, f), 'valid');
+                output (:, :, f, n) = output(:, :, f, n) + conv2 (input_shape(:, :, ch, n), rot90(W(:, :, ch, f), 2), 'valid');
             end
         end
 %         output(:, :, :, n) = cell2mat(output_cell (n));
 %         output(:, :, :, n) = work_case (num_output, input_shape(:, :, :, n), W, size(output(:, :, :, n)));
     end
+    output = output + repmat(reshape(b, 1, 1, num_output), size(output, 1), size(output, 2), 1, size(output, 4));
 %     disp (isequal(output, test));
 end
 

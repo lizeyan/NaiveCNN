@@ -13,7 +13,7 @@ function [down_delta, grad_W, grad_b] = nnconv_bp(input, delta, W, b, pad)
             for ch = 1:size(W, 3)
                 tmp = conv2 (delta(:, :, f, n), W(:, :, ch, f), 'full');
                 down_delta(:, :, ch, n) = down_delta(:, :, ch, n) + tmp (pad + 1: pad + width, pad + 1: pad + height);
-                grad_W (:, :, ch, f) = grad_W (:, :, ch, f) + conv2(input(:, :, ch, n), rot90(rot90(delta(:, :, f, n))), 'valid');
+                grad_W (:, :, ch, f) = grad_W (:, :, ch, f) + conv2(input(:, :, ch, n), rot90(delta(:, :, f, n), 2), 'valid');
             end
         end
     end
