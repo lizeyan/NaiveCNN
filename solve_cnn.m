@@ -17,6 +17,7 @@ function solve_cnn(model, loss, train_data, train_label, ...
 
     total_loss = [];
     total_accuracy = [];
+    loss_iter = zeros(1, solver.max_iter);
 
     for k = 1:solver.max_iter
         if ptr >= num_input
@@ -36,8 +37,10 @@ function solve_cnn(model, loss, train_data, train_label, ...
         grad_input = loss.backprop(model.Output(), batch_label);
         model.Backpropagation(grad_input);
         model.Update(solver.update);
-
-        total_loss = [total_loss, loss.forward(model.Output(), batch_label)];
+        
+        loss_current = loss.forward(model.Output(), batch_label);
+        total_loss = [total_loss, loss_current];
+        loss_iter(k) = mean(loss_current);
         total_accuracy = [total_accuracy, calc_accuracy(model.Output(), batch_label)];
 
         if mod(k, solver.display_freq) == 0
@@ -84,6 +87,10 @@ function solve_cnn(model, loss, train_data, train_label, ...
             LOG_INFO(msg);
         end
     end
+    
+    f = figure ();
+    plot (loss_iter);
+    saveas (f, 'loss_iter.png')
 end
 
 function LOG_INFO(msg)
