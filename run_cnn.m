@@ -20,7 +20,7 @@ test_data = mnist.test_data / 255;
 train_label = mnist.train_label;
 test_label = mnist.test_label;
 
-update.learning_rate = 0.0001;
+update.learning_rate = 0.0005;
 update.weight_decay = 0.005;
 update.momentum = 0.9;
 
