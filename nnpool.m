@@ -22,7 +22,9 @@ function output = nnpool(input, kernel_size, pad)
 %             toc
             col = mean (col);
 %             disp (size(col));
-            output (:, :, c_cnt, n_cnt) = col2im (col, [1, 1], [hn / kernel_size, wn / kernel_size], 'distinct');
+%             output (:, :, c_cnt, n_cnt) = col2im (col, [1, 1], [hn / kernel_size, wn / kernel_size], 'distinct');
+            output(:, :, c_cnt, n_cnt) = reshape (col, [hn / kernel_size, wn / kernel_size]);
+%             disp (isequal(test, output(:, :, c_cnt, n_cnt)));
 %             disp (size (output(:, :, c_cnt, n_cnt)));
         end
     end

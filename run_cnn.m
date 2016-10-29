@@ -7,7 +7,7 @@ model.add(Pooling('pool1', 2, 0));  % output shape: 14 x 14 x 4 x N
 model.add(Convolution('conv2', 3, 4, 4, 1, 0.1));
 model.add(Relu('relu2'));
 model.add(Pooling('pool2', 2, 0)); % output shape: 7 x 7 x 4 x N
-model.add(Linear('fc3', 196, 10, 0.1));
+model.add(Linear('fc3', 196 * 1, 10, 0.1));
 loss = SoftmaxLoss('loss');
 
 % load data
@@ -20,7 +20,7 @@ test_data = mnist.test_data / 255;
 train_label = mnist.train_label;
 test_label = mnist.test_label;
 
-update.learning_rate = 0.0001;
+update.learning_rate = 0.001;
 update.weight_decay = 0.005;
 update.momentum = 0.9;
 
@@ -28,9 +28,10 @@ solver.update = update;
 solver.shuffle = true;
 solver.batch_size = 32;
 solver.display_freq = 100;
-solver.max_iter = 2000;
+solver.max_iter = 10000;
 solver.test_freq = 1000;
 solver.snapshot_freq = 100000000;
-
+tic
 solve_cnn(model, loss, train_data, train_label, ...
       test_data, test_label, solver);
+toc

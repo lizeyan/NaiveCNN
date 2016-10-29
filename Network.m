@@ -50,5 +50,11 @@ classdef Network < handle
             net.Forward (input);
             preds = net.Output ();
         end
+        
+        function output = filt (net, input)
+            net.layer_list{1}.forward(input);
+            net.layer_list{2}.forward(net.layer_list{1}.output);
+            output = net.layer_list{2}.output;
+        end
     end
 end

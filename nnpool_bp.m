@@ -8,10 +8,12 @@ function down_delta = nnpool_bp(input, delta, kernel_size, pad)
     down_delta = zeros(h, w, c, n);
     for n_cnt = 1:n
         for c_cnt = 1:c
-            col = im2col_distinct (delta(:, :, c_cnt, n_cnt), [1, 1]);
-            col = repmat (col, [kernel_size * kernel_size, 1]);
-            im = col2im (col, [kernel_size, kernel_size], [h + pad * 2, w + pad * 2], 'distinct');
-            down_delta(:, :, c_cnt, n_cnt) = im (pad + 1: pad + h, pad + 1: pad + w);
+%             col = im2col_distinct (delta(:, :, c_cnt, n_cnt), [1, 1]);
+%             col = repmat (col, [kernel_size * kernel_size, 1]);
+%             im = col2im (col, [kernel_size, kernel_size], [h + pad * 2, w + pad * 2], 'distinct');
+%             down_delta(:, :, c_cnt, n_cnt) = im (pad + 1: pad + h, pad + 1: pad + w);
+            down_delta(:, :, c_cnt, n_cnt) = kron (delta(:, :, c_cnt, n_cnt), ones(kernel_size, kernel_size));
+%             disp (isequal(down_delta(:, :, c_cnt, n_cnt), test));
         end
     end
     down_delta = down_delta ./ (kernel_size * kernel_size);

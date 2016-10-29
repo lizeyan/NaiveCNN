@@ -87,10 +87,19 @@ function solve_cnn(model, loss, train_data, train_label, ...
             LOG_INFO(msg);
         end
     end
-    
+    % plot loss-iteration
     f = figure ();
     plot (loss_iter);
-    saveas (f, 'loss_iter.png')
+    saveas (f, 'result/loss_iter.png')
+    % plot 
+    for i = 1:4
+        data = test_data(:, :, 1, i);
+        imwrite(data * 255, ['result/pic' num2str(i) '.png']);
+        filt = model.filt (data);
+        for k = 1:size(filt, 3)
+            imwrite(filt(:, :, k) * 255, ['result/pic' num2str(i) '_' num2str(k) '.png']);
+        end
+    end
 end
 
 function LOG_INFO(msg)
